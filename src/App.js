@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+
 import './App.css';
+import DropdownBrasilEstados from './components/Forms/DropdownBrasilEstados';
+import DropdownBrasilCidade from './components/Forms/DropdownBrasilCidades';
+
 
 function App() {
+
+  const [formValues, setFormValues] = useState({});
+
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+
+  }
+  console.log("forme", formValues)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="conteiner">
+      <form>
+        <label htmlFor="state" >Estado: </label>
+        < DropdownBrasilEstados id="state" name="state" onChange={handleInputChange} />
+        <label htmlFor="cities">Cidade: </label>
+        <DropdownBrasilCidade state={formValues.state} id="city" name="city" onChange={handleInputChange}/>
+      </form>
+
     </div>
   );
 }
